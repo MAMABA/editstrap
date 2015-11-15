@@ -1,0 +1,370 @@
+<html>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css"></link>
+<link rel="stylesheet" type="text/css" href="select2.css"></link>
+<link rel="stylesheet" type="text/css" href="datepicker3.css"></link>
+<link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+<link rel="stylesheet" type="text/css" href="bootstrap-tagsinput.css"></link>
+<link rel="stylesheet" type="text/css" href="typeahead.css"></link>
+
+<link rel="stylesheet" type="text/css" href="editstrap.min.css"></link>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap.js"></script>
+<script type="text/javascript" src="select2.js"></script>
+<script type="text/javascript" src="bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="bootstrap-tagsinput.js"></script>
+<script type="text/javascript" src="typeahead.bundle.js"></script>
+
+<script type="text/javascript" src="editstrap.min.js"></script>
+
+
+<script type="text/javascript">
+
+var substringMatcher = function(strs) {
+	  return function findMatches(q, cb) {
+	    var matches, substringRegex;
+		// an array that will be populated with substring matches
+	    matches = [];
+
+	    // regex used to determine if a string contains the substring `q`
+	    substrRegex = new RegExp(q, 'i');
+		// iterate through the pool of strings and for any string that
+	    // contains the substring `q`, add it to the `matches` array
+	    $.each(strs, function(i, str) {
+	      if (substrRegex.test(str)) {
+	        matches.push(str);
+	      }
+	    });
+
+	    cb(matches);
+	  };
+	};
+
+	
+	$(function() {
+		var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+		        	  'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+		        	  'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+		        	  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+		        	  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+		        	  'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+		        	  'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+		        	  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+		        	  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+		        	];
+		
+		$("#textId").editstrap({
+			type : 'typeahead',
+			placeholder:'Type to complete',
+			typeahead:{options:{minLength: 1,highlight: true},dataset:{name: 'states',
+				  source: substringMatcher(states)}}
+		});
+		$("#imageId").editstrap({
+			validateClass : 'success',
+			displaySuccess : function(element, value, text) {
+			}
+
+		});
+		$("#textAreaId").editstrap({
+			validateClass : 'success',
+			url:'https://httpbin.org/get',
+			type : 'textArea',
+			textAreaRows : 6,
+
+		});
+		$("#ageId").editstrap({
+			appendText : ' Kg',
+			url:'https://httpbin.org/post'
+		});
+		$("#selectId").editstrap({
+			title : 'Cliquez pour modifier',
+			type : 'select',
+			value : 1,
+			prependText : 'ok',
+			appendText : 'ok',
+			displayEditIcon : true,
+			dataSelect : [ {
+				value : 1,
+				text : 'Mr'
+			}, {
+				value : 2,
+				text : 'Mrs'
+			}, {
+				value : 3,
+				text : 'Miss'
+			} ]
+		});
+		$("#select2Id").editstrap({
+			title : 'Cliquez pour modifier',
+			type : 'select2',
+			editClasses : 'fa fa-pencil-square-o',
+			value : 3,
+			dataSelect : function() {
+				return [ {
+					value : 1,
+					text : 'United State'
+				}, {
+					value : 2,
+					text : 'France'
+				}, {
+					value : 3,
+					text : 'Germany'
+				}, {
+					value : 4,
+					text : 'Tunisia'
+				}, {
+					value : 5,
+					text : 'Spain'
+				} ]
+			}
+		});
+		$("#multipleId").editstrap({
+			title : 'Cliquez pour modifier',
+			type : 'multiple',
+			value : [ 1, 2 ],
+			multipleSeparator : ' - ',
+			hoverEvent : false,
+			dataSelect : [ {
+				value : 1,
+				text : 'English'
+			}, {
+				value : 2,
+				text : 'French'
+			}, {
+				value : 3,
+				text : 'Arabic'
+			}, {
+				value : 4,
+				text : 'Spanich'
+			}, {
+				value : 5,
+				text : 'Italian'
+			} ]
+		});
+		$("#dateId").editstrap({
+			title : 'Cliquez pour modifier',
+			type : 'date',
+			dateFormat : 'dd MM yyyy'
+		});
+		$("#tagsId").editstrap({
+			title : 'Cliquez pour modifier',
+			type : 'tags',
+			multipleSeparator:'-',
+			value:['Sport', 'Music'],
+		});
+		$("#complexId").editstrap({
+			title : 'Cliquez pour modifier',
+			type : 'complex',
+			complexEdit : [ {
+				type : 'select',
+				value : 12,
+				dataSelect : [ {
+					value : 1,
+					text : "1"
+				}, {
+					value : 2,
+					text : "2"
+				}, {
+					value : 3,
+					text : "3"
+				}, {
+					value : 12,
+					text : "12"
+				} ]
+			}, {
+				type : 'select',
+				value : 'pm',
+				dataSelect : [ {
+					value : 'am',
+					text : "AM"
+				}, {
+					value : 'pm',
+					text : "PM"
+				} ]
+			} ]
+		});
+		$("#complexId2").editstrap({
+			title : 'Cliquez pour modifier',
+			type : 'complex',
+			complexEdit : [ {
+				type : 'select',
+				value : 2,
+				dataSelect : [ {
+					value : 1,
+					text : "Mr"
+				}, {
+					value : 2,
+					text : "Mrs"
+				}, {
+					value : 3,
+					text : "Ms"
+				} ],
+				name : 'title'
+			}, {
+				type : 'text',
+				value : 'Julia',
+				name : 'firestName'
+			}, {
+				type : 'text',
+				value : 'Flor',
+				name : 'lastName'
+			} ]
+		});
+		$("#complexId3").editstrap({
+			title : 'Cliquez pour modifier',
+			type : 'complex',
+			complexEdit : [ {
+				type : 'date',
+				value : '05/11/2015',
+				name : 'date',
+				append : ' ',
+				dateFormat : 'dd/mm/yyyy'
+			}, {
+				type : 'select',
+				append : ':',
+				value : 2,
+				dataSelect : [ {
+					value : 0,
+					text : "00"
+				}, {
+					value : 1,
+					text : "01"
+				}, {
+					value : 2,
+					text : "02"
+				}, {
+					value : 3,
+					text : "03"
+				}, {
+					value : 12,
+					text : "12"
+				} ],
+				name : 'hour'
+			}, {
+				type : 'select',
+				value : 2,
+				dataSelect : [ {
+					value : 0,
+					text : "00"
+				}, {
+					value : 0,
+					text : "00"
+				}, {
+					value : 15,
+					text : "15"
+				}, {
+					value : 30,
+					text : "30"
+				}, {
+					value : 45,
+					text : "45"
+				} ],
+				name : 'minute'
+			} ]
+		});
+	});
+</script>
+
+
+<body>
+
+	<div style="padding: 30px;">
+		<div class="panel panel-default">
+			<div class="panel-heading">Panel heading without title</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-3">
+						<label class="control-label pull-right">Name : </label>
+					</div>
+					<div class="col-md-3">
+						<a href="#" id="textId">Jane</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label class="control-label pull-right">weight :</label>
+					</div>
+					<div class="col-md-3">
+						<span id="ageId" data-edit-value="65" data-edit-pk="154">65 Kg</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label class="control-label pull-right">Date of birth : </label>
+					</div>
+					<div class="col-md-3">
+						<span id="dateId">01/01/2000</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label class="control-label pull-right">Gender : </label>
+					</div>
+					<div class="col-md-3">
+						<span id="selectId">Mr</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label class="control-label pull-right">Country : </label>
+					</div>
+					<div class="col-md-3">
+						<span id="select2Id">Germany</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label class="control-label pull-right">Languages : </label>
+					</div>
+					<div class="col-md-3">
+						<span id="multipleId">English - French</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label class="control-label pull-right">Hour : </label>
+					</div>
+					<div class="col-md-2">
+						<span id="complexId">12 PM</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label class="control-label pull-right">Name : </label>
+					</div>
+					<div class="col-md-5">
+						<span id="complexId2">Mrs Julia FLOR</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label class="control-label pull-right">Prefered Time : </label>
+					</div>
+					<div class="col-md-4">
+						<span id="complexId3">05/11/2015 12:00</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label class="control-label pull-right">Hobbies : </label>
+					</div>
+					<div class="col-md-4">
+						<span id="tagsId">Spor-Music</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label class="control-label pull-right">Description : </label>
+					</div>
+					<div class="col-md-4">
+						<span id="textAreaId">JavaScript was originally developed in 10 days in May 1995 by Brendan Eich, while he was working for Netscape Communications Corporation. </span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="select2-body-container"></div>
+	
+</body>
+</html>
