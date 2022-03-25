@@ -1,0 +1,7 @@
+{
+  "name": "editstrap",
+  "main": [
+    "./editstrap.min.css",
+    "./editstrap.min.js"
+  ]
+}
